@@ -1,5 +1,7 @@
-use axum::{routing::get, Router};
+use axum::{routing::post, Router};
+
+use crate::handlers::todo_handler;
 
 pub fn create_app() -> Router {
-    Router::new().route("/", get(|| async { "Hello, World!" }))
+    Router::new().route("/todos", post(todo_handler::create))
 }

@@ -1,5 +1,6 @@
 use routes::create_app;
 
+mod handlers;
 mod routes;
 
 #[tokio::main]
