@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     container_name: "svelte_rust_todo_app_db"
-    image: postgres
+    image: postgres:latest
     restart: always
     ports:
       - "5432:5432"
