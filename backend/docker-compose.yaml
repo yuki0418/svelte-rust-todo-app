@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  db:
+    container_name: "svelte_rust_todo_app_db"
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      TZ: "Asia/Tokyo"
