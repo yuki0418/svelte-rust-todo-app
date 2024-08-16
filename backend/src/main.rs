@@ -2,6 +2,7 @@ use routes::create_app;
 
 mod handlers;
 mod routes;
+mod services;
 
 #[tokio::main]
 async fn main() {
