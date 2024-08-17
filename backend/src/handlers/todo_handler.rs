@@ -1,13 +1,22 @@
 use axum::http::StatusCode;
 
+use crate::services::todo_service::{self, NewTodo};
+
 #[derive(serde::Deserialize)]
 pub struct CreateRequest {
     pub title: String,
 }
 
+impl From<CreateRequest> for NewTodo {
+    fn from(val: CreateRequest) -> Self {
+        NewTodo { title: val.title }
+    }
+}
+
 pub async fn create(
     axum::extract::Json(request): axum::extract::Json<CreateRequest>,
 ) -> StatusCode {
-    println!("creating todo with title: {}", request.title);
+    let _ = todo_service::create(request.into());
+
     StatusCode::CREATED
 }
