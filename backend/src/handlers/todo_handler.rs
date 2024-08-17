@@ -20,7 +20,13 @@ pub async fn create(
     axum::extract::State(state): axum::extract::State<AppState>,
     axum::extract::Json(request): axum::extract::Json<CreateRequest>,
 ) -> StatusCode {
-    let _ = todo_service::create(state, request.into());
+    let res = todo_service::create(state, request.into()).await;
 
-    StatusCode::CREATED
+    match res {
+        Ok(_) => StatusCode::CREATED,
+        Err(err) => {
+            println!("Failed to create todo: {:?}", err);
+            StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
 }
