@@ -1,6 +1,9 @@
 use axum::http::StatusCode;
 
-use crate::services::todo_service::{self, NewTodo};
+use crate::{
+    routes::AppState,
+    services::todo_service::{self, NewTodo},
+};
 
 #[derive(serde::Deserialize)]
 pub struct CreateRequest {
@@ -14,9 +17,10 @@ impl From<CreateRequest> for NewTodo {
 }
 
 pub async fn create(
+    axum::extract::State(state): axum::extract::State<AppState>,
     axum::extract::Json(request): axum::extract::Json<CreateRequest>,
 ) -> StatusCode {
-    let _ = todo_service::create(request.into());
+    let _ = todo_service::create(state, request.into());
 
     StatusCode::CREATED
 }
