@@ -4,6 +4,13 @@ pub struct NewTodo {
     pub title: String,
 }
 
+#[derive(serde::Serialize)]
+pub struct Todo {
+    id: uuid::Uuid,
+    title: String,
+    completed: bool,
+}
+
 pub async fn create(state: AppState, new_todo: NewTodo) -> Result<(), sqlx::Error> {
     let pool = state.pool;
 
@@ -18,4 +25,20 @@ pub async fn create(state: AppState, new_todo: NewTodo) -> Result<(), sqlx::Erro
     .await?;
 
     Ok(())
+}
+
+pub async fn get_list(state: AppState) -> Result<Vec<Todo>, sqlx::Error> {
+    let pool = state.pool;
+
+    let todo_list = sqlx::query_as!(
+        Todo,
+        r#"
+          SELECT id, title, completed
+          FROM todos
+        "#
+    )
+    .fetch_all(&pool)
+    .await?;
+
+    Ok(todo_list)
 }

@@ -1,8 +1,8 @@
-use axum::http::StatusCode;
+use axum::{http::StatusCode, Json};
 
 use crate::{
     routes::AppState,
-    services::todo_service::{self, NewTodo},
+    services::todo_service::{self, NewTodo, Todo},
 };
 
 #[derive(serde::Deserialize)]
@@ -27,6 +27,20 @@ pub async fn create(
         Err(err) => {
             println!("Failed to create todo: {:?}", err);
             StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
+}
+
+pub async fn get_list(
+    axum::extract::State(state): axum::extract::State<AppState>,
+) -> (StatusCode, Json<Vec<Todo>>) {
+    let res = todo_service::get_list(state).await;
+
+    match res {
+        Ok(todo_list) => (StatusCode::OK, Json(todo_list)),
+        Err(err) => {
+            println!("Failed to get todo list: {:?}", err);
+            (StatusCode::INTERNAL_SERVER_ERROR, Json(vec![]))
         }
     }
 }
