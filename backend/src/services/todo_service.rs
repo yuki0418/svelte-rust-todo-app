@@ -42,3 +42,20 @@ pub async fn get_list(state: AppState) -> Result<Vec<Todo>, sqlx::Error> {
 
     Ok(todo_list)
 }
+
+pub async fn complete(state: AppState, id: uuid::Uuid) -> Result<(), sqlx::Error> {
+    let pool = state.pool;
+
+    sqlx::query!(
+        r#"
+          UPDATE todos
+          SET completed = true
+          WHERE id = $1
+        "#,
+        id
+    )
+    .execute(&pool)
+    .await?;
+
+    Ok(())
+}

@@ -44,3 +44,18 @@ pub async fn get_list(
         }
     }
 }
+
+pub async fn complete(
+    axum::extract::State(state): axum::extract::State<AppState>,
+    axum::extract::Path(id): axum::extract::Path<uuid::Uuid>,
+) -> StatusCode {
+    let res = todo_service::complete(state, id).await;
+
+    match res {
+        Ok(_) => StatusCode::OK,
+        Err(err) => {
+            println!("Failed to complete todo: {:?}", err);
+            StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
+}
