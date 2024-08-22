@@ -5,8 +5,17 @@
 </script>
 
 <h1>My Todos</h1>
-<div>
+<div class="container">
   {#each data.todos as todo}
     <TodoCard {todo} />
   {/each}
 </div>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+  }
+</style>
