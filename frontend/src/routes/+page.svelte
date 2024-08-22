@@ -1,2 +1,12 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import TodoCard from "$lib/components/TodoCard.svelte";
+
+  const { data } = $props();
+</script>
+
+<h1>My Todos</h1>
+<div>
+  {#each data.todos as todo}
+    <TodoCard {todo} />
+  {/each}
+</div>
