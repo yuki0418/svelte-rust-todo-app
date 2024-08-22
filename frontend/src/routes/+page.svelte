@@ -5,10 +5,12 @@
 </script>
 
 <h1>My Todos</h1>
-<div class="input-field">
-  <input type="text" />
-  <button>Add</button>
-</div>
+<form method="POST">
+  <div class="input-field">
+    <input type="text" name="title" />
+    <button>Add</button>
+  </div>
+</form>
 <div class="container">
   {#each data.todos as todo}
     <TodoCard {todo} />
