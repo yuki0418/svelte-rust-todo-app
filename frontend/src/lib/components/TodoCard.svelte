@@ -14,7 +14,7 @@
 
 <style>
   .card {
-    border-radius: 0.5rem;
+    border-radius: 3px;
     padding: 1rem;
     width: 100%;
     border: 1px solid #ccc;
