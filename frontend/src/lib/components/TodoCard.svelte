@@ -14,17 +14,14 @@
 <div class="card">
   <h2>{todo.title}</h2>
   <div class="actions">
-    {#if todo.completed}
-      ✅
-    {:else}
-      <form method="POST" action={completeAction} use:enhance>
-        <button type="submit">Done</button>
-        <input name="id" value={todo.id} hidden />
-      </form>
-    {/if}
-    <form method="POST" action={deleteAction} use:enhance>
-      <button type="submit"> Delete </button>
+    <form method="POST" use:enhance>
       <input name="id" value={todo.id} hidden />
+      {#if todo.completed}
+        ✅
+      {:else}
+        <button type="submit" formaction={completeAction}>Done</button>
+      {/if}
+      <button type="submit" formaction={deleteAction}>Delete</button>
     </form>
   </div>
 </div>
