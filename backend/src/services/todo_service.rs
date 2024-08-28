@@ -35,7 +35,6 @@ pub async fn get_list(state: AppState) -> Result<Vec<Todo>, sqlx::Error> {
         r#"
           SELECT id, title, completed
           FROM todos
-          WHERE completed = false
         "#
     )
     .fetch_all(&pool)
