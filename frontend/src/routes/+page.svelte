@@ -3,17 +3,32 @@
   import { enhance } from "$app/forms";
 
   const { data } = $props();
+
+  let keyword = $state("");
+
+  let todoList = $derived.by(() => {
+    if (!keyword) return data.todos;
+    return data.todos.filter((todo) => todo.title.includes(keyword));
+  });
 </script>
 
 <h1>My Todos</h1>
+
+<div class="input-field">
+  <input type="text" placeholder="Search for keyword" bind:value={keyword} />
+</div>
+<!-- 表示確認用 -->
+<p>Keyword: {keyword}</p>
+
 <form method="POST" action="?/add" use:enhance>
   <div class="input-field">
     <input type="text" name="title" />
     <button>Add</button>
   </div>
 </form>
+
 <div class="container">
-  {#each data.todos as todo}
+  {#each todoList as todo}
     <TodoCard {todo} action="?/complete" />
   {/each}
 </div>
@@ -43,6 +58,7 @@
       width: 100%;
       padding: 0.5rem;
     }
+
     button {
       padding: 0.5rem 1rem;
     }
