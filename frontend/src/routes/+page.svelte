@@ -1,11 +1,12 @@
 <script lang="ts">
   import TodoCard from "$lib/components/TodoCard.svelte";
+  import { enhance } from "$app/forms";
 
   const { data } = $props();
 </script>
 
 <h1>My Todos</h1>
-<form method="POST">
+<form method="POST" action="?/add" use:enhance>
   <div class="input-field">
     <input type="text" name="title" />
     <button>Add</button>
@@ -20,6 +21,16 @@
 <style>
   :global(html *) {
     box-sizing: border-box;
+  }
+
+  :global(body) {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
   }
 
   .input-field {

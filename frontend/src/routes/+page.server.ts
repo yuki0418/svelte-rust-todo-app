@@ -16,7 +16,7 @@ export const load = async ({ fetch }) => {
 };
 
 export const actions = {
-  default: async ({ request, fetch }) => {
+  add: async ({ request, fetch }) => {
     const formData = await request.formData();
     const title = formData.get("title");
 
