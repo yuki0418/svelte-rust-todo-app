@@ -18,6 +18,9 @@ pub fn create_app(pool: PgPool) -> Router {
             "/todos",
             get(todo_handler::get_list).post(todo_handler::create),
         )
-        .route("/todos/:id", put(todo_handler::complete))
+        .route(
+            "/todos/:id",
+            put(todo_handler::complete).delete(todo_handler::archive),
+        )
         .with_state(state)
 }

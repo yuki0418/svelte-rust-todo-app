@@ -59,3 +59,18 @@ pub async fn complete(
         }
     }
 }
+
+pub async fn archive(
+    axum::extract::State(state): axum::extract::State<AppState>,
+    axum::extract::Path(id): axum::extract::Path<uuid::Uuid>,
+) -> StatusCode {
+    let res = todo_service::archive(state, id).await;
+
+    match res {
+        Ok(_) => StatusCode::OK,
+        Err(err) => {
+            println!("Failed to archive todo: {:?}", err);
+            StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
+}
