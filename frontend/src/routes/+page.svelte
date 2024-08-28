@@ -34,7 +34,7 @@
 
 <div class="container">
   {#each todoList as todo}
-    <TodoCard {todo} action="?/complete" />
+    <TodoCard {todo} completeAction="?/complete" deleteAction="?/delete" />
   {/each}
 </div>
 

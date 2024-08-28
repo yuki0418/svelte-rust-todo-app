@@ -4,22 +4,29 @@
 
   type Props = {
     todo: Todo;
-    action: string;
+    completeAction: string;
+    deleteAction: string;
   };
 
-  let { todo, action }: Props = $props();
+  let { todo, completeAction, deleteAction }: Props = $props();
 </script>
 
 <div class="card">
   <h2>{todo.title}</h2>
-  {#if todo.completed}
-    ✅
-  {:else}
-    <form method="POST" {action} use:enhance>
-      <button type="submit">Done</button>
+  <div class="actions">
+    {#if todo.completed}
+      ✅
+    {:else}
+      <form method="POST" action={completeAction} use:enhance>
+        <button type="submit">Done</button>
+        <input name="id" value={todo.id} hidden />
+      </form>
+    {/if}
+    <form method="POST" action={deleteAction} use:enhance>
+      <button type="submit"> Delete </button>
       <input name="id" value={todo.id} hidden />
     </form>
-  {/if}
+  </div>
 </div>
 
 <style>
@@ -35,6 +42,11 @@
 
     h2 {
       margin: 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
     }
   }
 </style>

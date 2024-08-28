@@ -36,4 +36,12 @@ export const actions = {
       method: "PUT",
     });
   },
+  delete: async ({ request, fetch }) => {
+    const formData = await request.formData();
+    const id = formData.get("id");
+
+    await fetch(`${API_URL}/todos/${id}`, {
+      method: "DELETE",
+    });
+  },
 } satisfies Actions;
