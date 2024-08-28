@@ -12,10 +12,14 @@
 
 <div class="card">
   <h2>{todo.title}</h2>
-  <form method="POST" {action} use:enhance>
-    <button type="submit">Done</button>
-    <input name="id" value={todo.id} hidden />
-  </form>
+  {#if todo.completed}
+    ✅
+  {:else}
+    <form method="POST" {action} use:enhance>
+      <button type="submit">Done</button>
+      <input name="id" value={todo.id} hidden />
+    </form>
+  {/if}
 </div>
 
 <style>
