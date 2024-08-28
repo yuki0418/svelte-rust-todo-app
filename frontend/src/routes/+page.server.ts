@@ -28,4 +28,12 @@ export const actions = {
       },
     });
   },
+  complete: async ({ request, fetch }) => {
+    const formData = await request.formData();
+    const id = formData.get("id");
+
+    await fetch(`${API_URL}/todos/${id}`, {
+      method: "PUT",
+    });
+  },
 } satisfies Actions;

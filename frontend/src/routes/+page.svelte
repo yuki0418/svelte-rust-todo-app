@@ -14,7 +14,7 @@
 </form>
 <div class="container">
   {#each data.todos as todo}
-    <TodoCard {todo} />
+    <TodoCard {todo} action="?/complete" />
   {/each}
 </div>
 
