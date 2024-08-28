@@ -7,8 +7,15 @@
   let keyword = $state("");
 
   let todoList = $derived.by(() => {
-    if (!keyword) return data.todos;
-    return data.todos.filter((todo) => todo.title.includes(keyword));
+    let list = data.todos.sort((a, b) =>
+      a.completed === b.completed ? 0 : a.completed ? 1 : -1
+    );
+
+    if (!keyword) return list;
+
+    list = data.todos.filter((todo) => todo.title.includes(keyword));
+
+    return list;
   });
 </script>
 
@@ -17,8 +24,6 @@
 <div class="input-field">
   <input type="text" placeholder="Search for keyword" bind:value={keyword} />
 </div>
-<!-- 表示確認用 -->
-<p>Keyword: {keyword}</p>
 
 <form method="POST" action="?/add" use:enhance>
   <div class="input-field">
