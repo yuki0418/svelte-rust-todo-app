@@ -43,6 +43,24 @@ pub async fn get_list(state: AppState) -> Result<Vec<Todo>, sqlx::Error> {
     Ok(todo_list)
 }
 
+pub async fn find_by_id(state: AppState, id: uuid::Uuid) -> Result<Option<Todo>, sqlx::Error> {
+    let pool = state.pool;
+
+    let todo_maybe = sqlx::query_as!(
+        Todo,
+        r#"
+          SELECT id, title, completed
+          FROM todos
+          WHERE id = $1
+        "#,
+        id
+    )
+    .fetch_optional(&pool)
+    .await?;
+
+    Ok(todo_maybe)
+}
+
 pub async fn complete(state: AppState, id: uuid::Uuid) -> Result<(), sqlx::Error> {
     let pool = state.pool;
 

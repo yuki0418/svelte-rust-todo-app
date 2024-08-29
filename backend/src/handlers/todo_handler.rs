@@ -45,6 +45,21 @@ pub async fn get_list(
     }
 }
 
+pub async fn find_by_id(
+    axum::extract::State(state): axum::extract::State<AppState>,
+    axum::extract::Path(id): axum::extract::Path<uuid::Uuid>,
+) -> (StatusCode, Json<Option<Todo>>) {
+    let res = todo_service::find_by_id(state, id).await;
+
+    match res {
+        Ok(todo) => (StatusCode::OK, Json(todo)),
+        Err(err) => {
+            println!("Failed to get todo list: {:?}", err);
+            (StatusCode::INTERNAL_SERVER_ERROR, Json(None))
+        }
+    }
+}
+
 pub async fn complete(
     axum::extract::State(state): axum::extract::State<AppState>,
     axum::extract::Path(id): axum::extract::Path<uuid::Uuid>,

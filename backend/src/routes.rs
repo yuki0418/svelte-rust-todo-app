@@ -1,7 +1,4 @@
-use axum::{
-    routing::{get, put},
-    Router,
-};
+use axum::{routing::get, Router};
 use sqlx::PgPool;
 
 use crate::handlers::todo_handler;
@@ -20,7 +17,9 @@ pub fn create_app(pool: PgPool) -> Router {
         )
         .route(
             "/todos/:id",
-            put(todo_handler::complete).delete(todo_handler::archive),
+            get(todo_handler::find_by_id)
+                .put(todo_handler::complete)
+                .delete(todo_handler::archive),
         )
         .with_state(state)
 }
