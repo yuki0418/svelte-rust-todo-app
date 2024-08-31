@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Todo } from "$lib";
+  import type { Todo } from "$lib/types";
   import { enhance } from "$app/forms";
 
   type Props = {

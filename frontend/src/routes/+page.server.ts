@@ -1,4 +1,4 @@
-import type { Todo } from "$lib";
+import type { Todo } from "$lib/types";
 import type { Actions } from "@sveltejs/kit";
 
 const API_URL = "http://127.0.0.1:3000";
