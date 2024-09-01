@@ -2,16 +2,18 @@
 	let { children } = $props();
 </script>
 
-<h1>My Todo App</h1>
+<main>
+	<h1>My Todo App</h1>
 
-{@render children()}
+	{@render children()}
+</main>
 
 <style>
 	:global(html *) {
 		box-sizing: border-box;
 	}
 
-	:global(body) {
+	main {
 		font-family: Arial, sans-serif;
 		margin: 0;
 		padding: 0;
