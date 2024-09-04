@@ -11,6 +11,22 @@ Copy the `.env.example` file to `.env` by running the following command:
 cp .env.example .env
 ```
 
+## Run database migrations
+First, you need to run the database on docker, we use postgres as database, to run the database execute the following command:
+```bash
+docker-compose up -d
+```
+
+Before running the database migrations, you need to install the `sqlx-cli` tool, to do this, execute the following command:
+```bash
+cargo install sqlx-cli
+```
+
+Then, you need to run the database migrations, to do this, execute the following command:
+```bash
+sqlx migrate run
+```
+
 ## Run the application
 To run the application, execute the following command:
 ```bash
